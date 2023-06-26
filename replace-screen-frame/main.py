@@ -7,7 +7,7 @@ class Content1(customtkinter.CTkFrame):
         self.content()
 
     def content(self):
-        self.label = customtkinter.CTkLabel(self, text="Frame #1")
+        self.label = customtkinter.CTkLabel(self, text="Frame 1")
         self.label.grid(row=0, column=0, padx=10)
 
         self.button = customtkinter.CTkButton(self, text="Change to MyFrame #2", command=lambda: app.change_content())
@@ -22,13 +22,17 @@ class Content2(customtkinter.CTkFrame):
         self.content()
 
     def content(self):
-        self.label = customtkinter.CTkLabel(self, text="Frame #2")
+        self.label = customtkinter.CTkLabel(self, text="Frame 2")
         self.label.grid(row=0, column=0, padx=10)
 
+        self.label2 = customtkinter.CTkLabel(self, text="Frame 22")
+        self.label2.grid(row=1, column=0, padx=10)
+
         self.button = customtkinter.CTkButton(self, text="Change to MyFrame #1", command=lambda: app.change_content())
-        self.button.grid(row=1, column=0, padx=20, pady=10)
+        self.button.grid(row=2, column=0, padx=20, pady=10)
 
 class App(customtkinter.CTk):
+    ctk = None
     content = 1
 
     def __init__(self):
@@ -41,14 +45,14 @@ class App(customtkinter.CTk):
         self.change_content()
 
     def change_content(self):
-        self.content1()
+        if self.ctk is not None:
+            self.ctk.destroy()
+
         if self.content == 1:
             self.content = 2
-            self.ctk.destroy()
             self.content1()
         else:
             self.content = 1
-            self.ctk.destroy()
             self.content2()
         self.ctk.grid(row=0, column=0, padx=20)
 
